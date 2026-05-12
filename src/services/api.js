@@ -33,7 +33,7 @@ export async function loginUser(data) {
 }
 
 export async function getProducts() {
-  const response = await fetch("http://localhost:3000/api/products", {
+  const response = await fetch(`${BASE_URL}/api/products`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
