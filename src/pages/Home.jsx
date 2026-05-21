@@ -59,7 +59,7 @@ function Home({ addToCart }) {
             <div className="absolute w-72 h-72 md:w-96 md:h-96 bg-red-500/10 rounded-full blur-3xl pointer-events-none"></div>
             
             <img 
-              src="URL_DA_SUA_IMAGEM_DA_CAMISETA" 
+              src="https://montinkantigo.s3.amazonaws.com/data/camisas/estampa-camiseta-india--5d48ae704b1c7.png" 
               alt="Camiseta Estampa Exclusiva" 
               className="w-full max-w-sm md:max-w-md object-contain drop-shadow-[0_25px_25px_rgba(0,0,0,0.6)] transform md:rotate-1 hover:rotate-0 transition-transform duration-500"
             />
