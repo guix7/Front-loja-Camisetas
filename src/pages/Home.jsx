@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import { getProducts } from "../services/api.js";
 import ProductCart from "../components/ProductCard.jsx";
 
+// 1. IMPORTAR A IMAGEM LOCAL AQUI NO TOPO:
+import imagemCamiseta from "../assets/camiseta-hero.png"; 
+
 function Home({ addToCart }) {
   const [products, setProducts] = useState([]);
   const [erro, setErro] = useState("");
@@ -13,7 +16,6 @@ function Home({ addToCart }) {
       setLoading(true);
       try {
         const response = await getProducts();
-        // Garante que mesmo que response.data venha indefinido, o app não quebre
         setProducts(response.data || []);
       } catch (error) {
         setErro(error.message);
@@ -57,14 +59,11 @@ function Home({ addToCart }) {
           <div className="order-1 md:order-2 flex justify-center items-center relative select-none">
             <div className="absolute w-72 h-72 md:w-96 md:h-96 bg-red-500/10 rounded-full blur-3xl pointer-events-none"></div>
             
-            {/* Coloquei uma imagem temporária válida para evitar quebras de renderização */}
+            {/* 2. COLOCAR A VARIÁVEL DA IMPORTAÇÃO NO SRC: */}
             <img 
-              src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80" 
+              src={imagemCamiseta} 
               alt="Camiseta Estampa Exclusiva" 
-              className="w-full max-w-sm md:max-w-md h-80 md:h-96 object-contain drop-shadow-[0_25px_25px_rgba(0,0,0,0.6)] transform md:rotate-1 hover:rotate-0 transition-transform duration-500 rounded-2xl"
-              onError={(e) => {
-                e.target.style.display = 'none'; // Se falhar, esconde a imagem em vez de travar a tela
-              }}
+              className="w-full max-w-sm md:max-w-md h-80 md:h-96 object-contain drop-shadow-[0_25px_25px_rgba(0,0,0,0.6)] transform md:rotate-1 hover:rotate-0 transition-transform duration-500"
             />
           </div>
 
@@ -122,7 +121,6 @@ function Home({ addToCart }) {
           </div>
         )}
 
-        {/* GRID DE CARDS */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
           {products && products.length > 0 ? (
             products.map((product) => (
