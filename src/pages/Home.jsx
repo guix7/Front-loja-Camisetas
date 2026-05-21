@@ -1,3 +1,4 @@
+JavaScript
 import { useState, useEffect } from "react";
 import { getProducts } from "../services/api.js";
 import ProductCart from "../components/ProductCard.jsx";
@@ -26,10 +27,12 @@ function Home({ addToCart }) {
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col justify-between font-sans antialiased">
       
-      {/* 1. HERO SECTION (BANNER PRINCIPAL DE MODA) */}
-      <section className="bg-gradient-to-r from-gray-950 via-neutral-900 to-gray-950 text-white py-16 md:py-24 px-6 relative overflow-hidden shadow-inner">
+      {/* 1. HERO SECTION (BANNER PRINCIPAL COM A CAMISETA EM DESTAQUE) */}
+      <section className="bg-gradient-to-r from-gray-950 via-neutral-900 to-gray-950 text-white py-12 md:py-20 px-6 relative overflow-hidden shadow-inner">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center relative z-10">
-          <div className="space-y-6 text-center md:text-left">
+          
+          {/* Textos da Esquerda */}
+          <div className="space-y-6 text-center md:text-left order-2 md:order-1">
             <span className="bg-red-600 text-white text-xs font-bold tracking-widest uppercase px-3 py-1 rounded-full">
               Nova Coleção Outono/Inverno
             </span>
@@ -50,15 +53,18 @@ function Home({ addToCart }) {
             </div>
           </div>
           
-          {/* Ilustração/Destaque visual de moda no lado direito */}
-          <div className="hidden md:flex justify-center items-center relative">
-            <div className="absolute w-72 h-72 bg-red-500/10 rounded-full blur-3xl"></div>
-            <div className="border border-neutral-800 bg-neutral-900/50 backdrop-blur-sm p-8 rounded-2xl shadow-2xl max-w-sm transform rotate-2">
-              <span className="text-yellow-400 font-bold text-xs uppercase tracking-wider">Leve 3, Pague 2</span>
-              <p className="text-xl font-bold mt-1 text-white">Combo Estampas Urbanas</p>
-              <p className="text-sm text-gray-400 mt-2">Monte o seu kit com nossas camisetas mais vendidas e ganhe desconto progressivo na finalização.</p>
-            </div>
+          {/* Imagem de Destaque da Direita (Sua Camiseta sem o Card) */}
+          <div className="order-1 md:order-2 flex justify-center items-center relative select-none">
+            {/* Efeito de brilho de fundo para destacar a camiseta */}
+            <div className="absolute w-72 h-72 md:w-96 md:h-96 bg-red-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <img 
+              src="URL_DA_SUA_IMAGEM_DA_CAMISETA" 
+              alt="Camiseta Estampa Exclusiva" 
+              className="w-full max-w-sm md:max-w-md object-contain drop-shadow-[0_25px_25px_rgba(0,0,0,0.6)] transform md:rotate-1 hover:rotate-0 transition-transform duration-500"
+            />
           </div>
+
         </div>
       </section>
 
