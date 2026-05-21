@@ -1,4 +1,3 @@
-JavaScript
 import { useState, useEffect } from "react";
 import { getProducts } from "../services/api.js";
 import ProductCart from "../components/ProductCard.jsx";
@@ -14,7 +13,8 @@ function Home({ addToCart }) {
       setLoading(true);
       try {
         const response = await getProducts();
-        setProducts(response.data);
+        // Garante que mesmo que response.data venha indefinido, o app não quebre
+        setProducts(response.data || []);
       } catch (error) {
         setErro(error.message);
       } finally {
@@ -27,7 +27,7 @@ function Home({ addToCart }) {
   return (
     <div className="bg-gray-50 min-h-screen flex flex-col justify-between font-sans antialiased">
       
-      {/* 1. HERO SECTION (BANNER PRINCIPAL COM A CAMISETA EM DESTAQUE) */}
+      {/* 1. HERO SECTION */}
       <section className="bg-gradient-to-r from-gray-950 via-neutral-900 to-gray-950 text-white py-12 md:py-20 px-6 relative overflow-hidden shadow-inner">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center relative z-10">
           
@@ -53,22 +53,25 @@ function Home({ addToCart }) {
             </div>
           </div>
           
-          {/* Imagem de Destaque da Direita (Sua Camiseta sem o Card) */}
+          {/* Imagem de Destaque da Direita */}
           <div className="order-1 md:order-2 flex justify-center items-center relative select-none">
-            {/* Efeito de brilho de fundo para destacar a camiseta */}
             <div className="absolute w-72 h-72 md:w-96 md:h-96 bg-red-500/10 rounded-full blur-3xl pointer-events-none"></div>
             
+            {/* Coloquei uma imagem temporária válida para evitar quebras de renderização */}
             <img 
-              src="https://montinkantigo.s3.amazonaws.com/data/camisas/estampa-camiseta-india--5d48ae704b1c7.png" 
+              src="https://images.unsplash.com/photo-1521572267360-ee0c2909d518?auto=format&fit=crop&w=600&q=80" 
               alt="Camiseta Estampa Exclusiva" 
-              className="w-full max-w-sm md:max-w-md object-contain drop-shadow-[0_25px_25px_rgba(0,0,0,0.6)] transform md:rotate-1 hover:rotate-0 transition-transform duration-500"
+              className="w-full max-w-sm md:max-w-md h-80 md:h-96 object-contain drop-shadow-[0_25px_25px_rgba(0,0,0,0.6)] transform md:rotate-1 hover:rotate-0 transition-transform duration-500 rounded-2xl"
+              onError={(e) => {
+                e.target.style.display = 'none'; // Se falhar, esconde a imagem em vez de travar a tela
+              }}
             />
           </div>
 
         </div>
       </section>
 
-      {/* RECURSOS DA LOJA (VANTAGENS DE VESTUÁRIO) */}
+      {/* RECURSOS DA LOJA */}
       <div className="bg-white border-b border-gray-200 py-6 px-6 shadow-sm">
         <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-3 gap-6 text-center md:text-left">
           <div className="flex flex-col md:flex-row items-center gap-3 justify-center">
@@ -95,7 +98,7 @@ function Home({ addToCart }) {
         </div>
       </div>
 
-      {/* 2. CONTEÚDO PRINCIPAL (CATÁLOGO DE ROUPAS) */}
+      {/* 2. CONTEÚDO PRINCIPAL */}
       <main id="produtos" className="max-w-7xl mx-auto px-4 md:px-6 py-12 flex-grow w-full">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-4 border-b border-gray-200">
           <div>
@@ -119,19 +122,23 @@ function Home({ addToCart }) {
           </div>
         )}
 
-        {/* GRID DE ATÉ 4 CARDS POR LINHA */}
+        {/* GRID DE CARDS */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
-            <ProductCart
-              key={product.id}
-              product={product}
-              addToCart={addToCart}
-            />
-          ))}
+          {products && products.length > 0 ? (
+            products.map((product) => (
+              <ProductCart
+                key={product.id}
+                product={product}
+                addToCart={addToCart}
+              />
+            ))
+          ) : (
+            !loading && <p className="text-gray-500 text-sm col-span-full text-center">Nenhum produto encontrado.</p>
+          )}
         </div>
       </main>
 
-      {/* 3. RODAPÉ (FOOTER PREMIUM) */}
+      {/* 3. RODAPÉ */}
       <footer className="bg-neutral-950 text-neutral-400 text-sm border-t border-neutral-900 pt-12 pb-6 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
           <div className="space-y-3">
@@ -158,7 +165,7 @@ function Home({ addToCart }) {
           </div>
           <div>
             <p className="text-white font-semibold mb-3 text-xs uppercase tracking-widest text-neutral-300">Clube Exclusivo</p>
-            <p className="text-xs text-neutral-500 mb-3">Inscreva-se e ganhe **10% OFF** na sua primeira compra de camisetas.</p>
+            <p className="text-xs text-neutral-500 mb-3">Inscreva-se e ganhe 10% OFF na sua primeira compra de camisetas.</p>
             <div className="flex gap-2">
               <input 
                 type="email" 
