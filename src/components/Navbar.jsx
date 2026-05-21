@@ -21,7 +21,7 @@ function Navbar({ cartProducts = [] }){
             
             {/* LOGO */}
             <Link to="/" className="text-xl font-bold hover:text-gray-300 transition">
-                Loja Virtual
+                Estampas Exclusivas
             </Link>
 
             {/* LINKS */}
