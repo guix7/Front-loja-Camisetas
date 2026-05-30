@@ -2,7 +2,7 @@ function ProductCart({ product, addToCart }) {
   return (
     <div className="relative w-full h-[450px] rounded-[2rem] overflow-hidden shadow-lg bg-white border border-gray-100 flex flex-col group hover:shadow-2xl transition-all duration-300">
       
-      
+      {/* CONTAINER DA IMAGEM: Centraliza o produto sem esticar e sem cortar */}
       <div className="w-full h-[220px] bg-gray-50 flex items-center justify-center p-4 relative overflow-hidden select-none">
         <img
           src={product.imagem}
