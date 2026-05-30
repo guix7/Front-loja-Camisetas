@@ -1,62 +1,57 @@
 function ProductCart({ product, addToCart }) {
   return (
-    <div className="relative w-full h-[450px] rounded-[2rem] overflow-hidden shadow-lg bg-white border border-gray-100 flex flex-col group hover:shadow-2xl transition-all duration-300">
+    <div className="relative w-full h-[480px] rounded-[2rem] overflow-hidden shadow-xl group hover:shadow-2xl transition-all duration-300">
       
-      {/* CONTAINER DA IMAGEM: Centraliza o produto sem esticar e sem cortar */}
-      <div className="w-full h-[220px] bg-gray-50 flex items-center justify-center p-4 relative overflow-hidden select-none">
-        <img
-          src={product.imagem}
-          alt={product.nome}
-          className="max-w-full max-h-full object-contain group-hover:scale-105 transition-transform duration-500"
-        />
-      </div>
+      
+      <img
+        src={product.imagem}
+        alt={product.nome}
+        className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+      />
 
       
-      <div className="absolute inset-x-0 bottom-0 h-[250px] bg-gradient-to-t from-gray-950 via-neutral-900 to-neutral-900/90 text-white p-5 flex flex-col justify-between">
-        
-        
-        <div className="space-y-2">
-          
-          <div className="flex items-center justify-between gap-2">
-            <h1 className="text-lg font-bold tracking-tight leading-tight truncate max-w-[150px]">
-              {product.nome}
-            </h1>
-            <span className="bg-white/10 backdrop-blur-md text-white font-bold text-xs px-2.5 py-1.5 rounded-full border border-white/10 whitespace-nowrap">
-              {Number(product.preco).toLocaleString("pt-BR", {
-                style: "currency",
-                currency: "BRL",
-                maximumFractionDigits: 0,
-              })}
-            </span>
-          </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
 
-          
-          <p className="text-gray-400 text-xs line-clamp-2 leading-relaxed min-h-[32px]">
-            {product.descricao}
-          </p>
+      
+      <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end h-3/5 text-white space-y-4">
+        
+        
+        <div className="flex items-start justify-between gap-2">
+          <h1 className="text-xl font-bold tracking-tight leading-tight drop-shadow-sm">
+            {product.nome}
+          </h1>
+          <span className="bg-white/15 backdrop-blur-md text-white font-bold text-sm px-3 py-1.5 rounded-full whitespace-nowrap border border-white/10">
+            {Number(product.preco).toLocaleString("pt-BR", {
+              style: "currency",
+              currency: "BRL",
+              maximumFractionDigits: 0, // Remove os centavos se quiser deixar limpo como o design da foto
+            })}
+          </span>
         </div>
 
         
-        <div className="space-y-3">
-          
-          <div className="flex gap-1.5">
-            <span className="bg-white/5 text-gray-300 text-[9px] uppercase font-semibold px-2 py-0.5 rounded tracking-wider">
-              Qualidade
-            </span>
-            <span className="bg-white/5 text-gray-300 text-[9px] uppercase font-semibold px-2 py-0.5 rounded tracking-wider">
-              Destaque
-            </span>
-          </div>
+        <p className="text-gray-300 text-xs md:text-sm line-clamp-2 leading-relaxed font-light">
+          {product.descricao}
+        </p>
 
-         
-          <button
-            onClick={() => addToCart(product)}
-            className="w-full bg-white hover:bg-gray-100 text-gray-950 font-bold py-2.5 rounded-xl transition-all active:scale-[0.98] text-xs tracking-wide shadow-md"
-          >
-            Adicionar ao Carrinho
-          </button>
+       
+        <div className="flex gap-2 pt-1">
+          <span className="bg-white/10 text-gray-200 text-[10px] uppercase font-semibold px-2.5 py-1 rounded-md tracking-wider">
+            100% Algodão
+          </span>
+          <span className="bg-white/10 text-gray-200 text-[10px] uppercase font-semibold px-2.5 py-1 rounded-md tracking-wider">
+            Premium
+          </span>
         </div>
 
+        
+        <button
+          onClick={() => addToCart(product)}
+          className="w-full bg-white hover:bg-gray-100 text-gray-950 font-bold py-3.5 rounded-xl transition-all shadow-md active:scale-[0.98] mt-2 text-sm tracking-wide"
+        >
+          Adicionar ao Carrinho
+        </button>
+        
       </div>
     </div>
   );
